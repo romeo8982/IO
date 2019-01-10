@@ -1,8 +1,9 @@
 public class Administrator extends Pracownik {
 
-	private Pracownik DodaniePracownika() {
+	private Pracownik DodaniePracownika() { 
+		Pracownik pracownik = new Pracownik(); 
 		// TODO - implement Administrator.DodaniePracownika
-		throw new UnsupportedOperationException();
+		return pracownik;
 	}
 
 	/**

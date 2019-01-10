@@ -1,6 +1,6 @@
 public class Main {
 
-	public void main() {
+	public static void main(String[] args) {
 		// TODO - implement Main.main
 		throw new UnsupportedOperationException();
 	}
