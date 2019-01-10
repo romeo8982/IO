@@ -6,7 +6,7 @@ public class Klient extends Konto {
 	 * Spo?ród elementów listy klient wybiera kaset?, któr? chce zarezerwowa?. Po potwierdzeniu rezerwacji wykonuje si? listaRezerwacji.add(rezerwacja)
 	 * @param daneKasety
 	 */
-	private Rezerwacja ZarezerwujKasete(string daneKasety) {
+	private Rezerwacja ZarezerwujKasete(String daneKasety) {
 		// TODO - implement Klient.ZarezerwujKasete
 		throw new UnsupportedOperationException();
 	}

@@ -1,3 +1,4 @@
+import java.util.List;
 public class SystemLogowania {
 
 	/**
@@ -6,7 +7,7 @@ public class SystemLogowania {
 	 * @param login
 	 * @param haslo
 	 */
-	public Klient Logowanie(List<Klient> listaKont, string login, string haslo) {
+	public Klient Logowanie(List<Klient> listaKont, String login, String haslo) {
 		// TODO - implement SystemLogowania.Logowanie
 		throw new UnsupportedOperationException();
 	}
