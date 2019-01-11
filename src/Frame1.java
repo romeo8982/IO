@@ -106,7 +106,9 @@ public class Frame1 {
 				
 				if(wyszukiwarka.Wyszukaj(textField.getText(), textField_1.getText(), baza.listaKont))
 				{
-				lblNewLabel_3.setText("Udane Logowanie");
+				frame.dispose();
+				Menu menu = new Menu();
+				menu.setVisible(true);
 				}
 				lblNewLabel_3.setVisible(true);
 			}
