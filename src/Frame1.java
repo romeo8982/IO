@@ -67,7 +67,7 @@ public class Frame1 {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().setBackground(new java.awt.Color(95, 221, 167));
 		
-		JLabel lblNewLabel = new JLabel("Wypo\u017Cyczelnia Kaset");
+		JLabel lblNewLabel = new JLabel("Wypo\u017Cyczalnia Kaset");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 31));
 		lblNewLabel.setBounds(144, 11, 292, 33);
 		frame.getContentPane().add(lblNewLabel);
