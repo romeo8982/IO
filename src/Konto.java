@@ -1,14 +1,14 @@
 public class Konto {
 
-	private int id;
-	private String imie;
-	private String nazwisko;
-	private String email;
-	private int iloscWypozyczen;
-	private int iloscZarezerwowanych;
-	private String login;
-	private String haslo;
-	private float saldo;
-	private boolean zablokowaneKonto;
+	public int id;
+	public String imie;
+	public String nazwisko;
+	public String email;
+	public int iloscWypozyczen;
+	public int iloscZarezerwowanych;
+	public String login;
+	public String haslo;
+	public float saldo;
+	public boolean zablokowaneKonto;
 
 }

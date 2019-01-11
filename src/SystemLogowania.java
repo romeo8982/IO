@@ -8,8 +8,19 @@ public class SystemLogowania {
 	 * @param haslo
 	 */
 	public Klient Logowanie(List<Klient> listaKont, String login, String haslo) {
-		// TODO - implement SystemLogowania.Logowanie
-		throw new UnsupportedOperationException();
+		Klient klient = new Klient();
+		Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
+		
+		//if(wyszukiwarka.Wyszukaj(haslo, 0).isEmpty())
+		//{
+			//return klient=null;
+		//}
+		//else
+		//{
+			//return wyszukiwarka.Wyszukaj(haslo, 0).get(0);
+		//}
+		return klient;
+		
 	}
 
 }

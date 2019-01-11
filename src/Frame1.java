@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -17,6 +16,9 @@ public class Frame1 {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JLabel lblNewLabel_3;
+	Baza baza = new Baza();
+	Klient konto = new Klient();
+	Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
 
 	/**
 	 * Launch the application.
@@ -40,11 +42,25 @@ public class Frame1 {
 	public Frame1() {
 		initialize();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		konto.id=1;
+		konto.email="kamil@gmail.com";
+		konto.iloscWypozyczen=0;
+		konto.iloscZarezerwowanych=0;
+		konto.login="12345";
+		konto.haslo="54321";
+		konto.imie="Kamil";
+		konto.nazwisko="Kowalski";
+		konto.saldo=0;
+		konto.zablokowaneKonto=false;
+		
+		baza.listaKont.add(konto);
+		
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 588, 312);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,12 +99,18 @@ public class Frame1 {
 		
 		
 		JButton btnNewButton = new JButton("Zaloguj");
+		btnNewButton.setBounds(243, 152, 89, 23);
+		frame.getContentPane().add(btnNewButton);	
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				if(wyszukiwarka.Wyszukaj(textField.getText(), textField_1.getText(), baza.listaKont))
+				{
+				lblNewLabel_3.setText("Udane Logowanie");
+				}
 				lblNewLabel_3.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(243, 152, 89, 23);
-		frame.getContentPane().add(btnNewButton);	
+		
 	}
 }
