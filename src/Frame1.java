@@ -12,7 +12,7 @@ import java.awt.Color;
 
 public class Frame1 {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JLabel lblNewLabel_3;
