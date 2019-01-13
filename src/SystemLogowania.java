@@ -7,20 +7,17 @@ public class SystemLogowania {
 	 * @param login
 	 * @param haslo
 	 */
-	public Klient Logowanie(List<Klient> listaKont, String login, String haslo) {
-		Klient klient = new Klient();
-		Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
-		
-		//if(wyszukiwarka.Wyszukaj(haslo, 0).isEmpty())
-		//{
-			//return klient=null;
-		//}
-		//else
-		//{
-			//return wyszukiwarka.Wyszukaj(haslo, 0).get(0);
-		//}
-		return klient;
-		
-	}
-
+		public boolean Logowanie(String login,String haslo, List<Klient> lista)
+		{
+			boolean udaneLogowanie=false;
+			for(int i=0;i<lista.size();i++)
+			{
+				if((login.equals(lista.get(i).login))&&(haslo.equals(lista.get(i).haslo)))
+				{				
+					udaneLogowanie=true;
+				}
+			}
+				return udaneLogowanie;
+		}
+	 
 }

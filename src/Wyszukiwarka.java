@@ -7,7 +7,7 @@ public class Wyszukiwarka {
 	 * @param tekst
 	 * @param parametrWyszukiwania Okre?la typ listy poszukiwanych elementów
 	 */
-	public boolean Wyszukaj(String login,String haslo, List<Klient> lista)
+	public boolean Logowanie(String login,String haslo, List<Klient> lista)
 	{
 		boolean udaneLogowanie=false;
 		for(int i=0;i<lista.size();i++)

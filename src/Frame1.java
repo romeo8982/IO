@@ -7,18 +7,30 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.io.InputStreamReader;
 public class Frame1 {
 
 	public JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JLabel lblNewLabel_3;
-	Baza baza = new Baza();
-	Klient konto = new Klient();
-	Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
+	public Baza baza = new Baza();
+	public Klient klient;
+	public Kaseta kaseta;
+	private Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
+	private SystemLogowania logowanie = new SystemLogowania();
+	
 
 	/**
 	 * Launch the application.
@@ -36,31 +48,107 @@ public class Frame1 {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public Frame1() {
+
+	public Frame1()  {
+		try {
+			KlientInit();
+			MovieInit();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		initialize();
 	}
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
+	private void KlientInit() throws FileNotFoundException, IOException
+	{	
+		try (BufferedReader br = new BufferedReader(new InputStreamReader( new FileInputStream("Klienci.txt"), "UTF-8"))) {
+		    String line;
+		    while((line = br.readLine()) != null){	  
+		    	   klient = new Klient();
+			       klient.id=Integer.parseInt(line);
+			    if ((line = br.readLine()) != null) {
+				       klient.imie=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.nazwisko=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.email=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.iloscWypozyczen=Integer.parseInt(line);
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.iloscZarezerwowanych=Integer.parseInt(line);
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.login=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.haslo=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.saldo=Integer.parseInt(line);
+				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.zablokowaneKonto=Boolean.parseBoolean(line);
+				    }
+			    baza.listaKont.add(klient);
+		    }
+		    br.close();
+		}
+	}
+	private void MovieInit() throws FileNotFoundException, IOException, ParseException
+	{	
+		try (BufferedReader br = new BufferedReader(new InputStreamReader( new FileInputStream("Kasety.txt"), "UTF-8"))) {
+		    String line;
+		    while((line = br.readLine()) != null){
+		    	   kaseta = new Kaseta();
+			       kaseta.id=Integer.parseInt(line);
+			    if ((line = br.readLine()) != null) {
+				       kaseta.tytul=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+				       kaseta.opis=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+			    	DateFormat formatter;
+			    	formatter = new SimpleDateFormat("dd-MM-yy");
+				       kaseta.dataWydania=formatter.parse(line);
+				    }
+			    if ((line = br.readLine()) != null) {
+				       kaseta.rezyser=line;
+				    }
+			    if ((line = br.readLine()) != null) {
+				       kaseta.obsada=(Arrays.asList(line.split(",")));
+				    }
+			    if ((line = br.readLine()) != null) {
+				       kaseta.liczbaEgzemplarzy=Integer.parseInt(line);
+				    }
+			    if ((line = br.readLine()) != null) {
+				       kaseta.liczbaWypozyczonych=Integer.parseInt(line);
+				    }
+			    if ((line = br.readLine()) != null) {
+				       kaseta.liczbaDostepnych=Integer.parseInt(line);
+				    }			   
+			    baza.listaTytulow.add(kaseta);
+		    }
+		    br.close();
+		}
+	}
 	private void initialize() {
-		
-		konto.id=1;
-		konto.email="kamil@gmail.com";
-		konto.iloscWypozyczen=0;
-		konto.iloscZarezerwowanych=0;
-		konto.login="12345";
-		konto.haslo="54321";
-		konto.imie="Kamil";
-		konto.nazwisko="Kowalski";
-		konto.saldo=0;
-		konto.zablokowaneKonto=false;
-		
-		baza.listaKont.add(konto);
-		
-		
+				
 		frame = new JFrame();
 		frame.setBounds(100, 100, 588, 312);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,8 +191,7 @@ public class Frame1 {
 		frame.getContentPane().add(btnNewButton);	
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(wyszukiwarka.Wyszukaj(textField.getText(), textField_1.getText(), baza.listaKont))
+				if(logowanie.Logowanie(textField.getText(), textField_1.getText(), baza.listaKont))
 				{
 				frame.dispose();
 				Menu menu = new Menu();
