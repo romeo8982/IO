@@ -18,3 +18,13 @@ qwerty
 ytrewq
 0
 false
+3
+Andrzej
+Nowak
+anowak@gmail.com
+0
+0
+anowak
+haslo
+0
+false

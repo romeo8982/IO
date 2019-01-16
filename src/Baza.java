@@ -19,6 +19,15 @@ public class Baza {
 	Kaseta kaseta = new Kaseta();
 	Klient klient = new Klient();
 	
+	Konto daneKonta (String login) {
+		Konto dane = new Konto();
+		for(Konto konto : listaKont) {
+			if(konto.login.equals(login))
+				dane = konto;
+		}
+		return dane;
+	}
+	
 	private void KlientInit() throws FileNotFoundException, IOException
 	{	
 		try (BufferedReader br = new BufferedReader(new InputStreamReader( new FileInputStream("Klienci.txt"), "UTF-8"))) {

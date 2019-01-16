@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPasswordField;
+
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -87,7 +89,7 @@ public class Frame1 {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JPasswordField();
 		textField_1.setBounds(233, 121, 173, 20);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
@@ -107,7 +109,7 @@ public class Frame1 {
 				if(logowanie.Logowanie(textField.getText(), textField_1.getText(), baza.listaKont))
 				{
 				frame.dispose();
-				Menu menu = new Menu();
+				Menu menu = new Menu(textField.getText());
 				menu.setVisible(true);
 				}
 				lblNewLabel_3.setVisible(true);

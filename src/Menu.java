@@ -18,27 +18,31 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
+	Konto loggedUser = new Konto();
+	Baza baza = new Baza();
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Menu frame = new Menu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Menu frame = new Menu(args[0]);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {
+	public Menu(String login) {
+		loggedUser = baza.daneKonta(login);
+		System.out.println("zalogowano jako " + loggedUser.imie + " " + loggedUser.nazwisko);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 896, 635);
 		contentPane = new JPanel();
@@ -86,9 +90,6 @@ public class Menu extends JFrame {
 			}
 		});
 
-		
-		
-		
 	}
 
 }
