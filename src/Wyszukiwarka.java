@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.directory.SearchResult;
 public class Wyszukiwarka {
+	
 	Baza baza = new Baza();
 
 	/**
@@ -11,36 +11,38 @@ public class Wyszukiwarka {
 	 * @param parametrWyszukiwania Okre?la typ listy poszukiwanych element�w
 	 */
 	
-//	public <T> List<T> Wyszukaj(String tekst, int parametrWyszukiwania) {
-//	//	Konto konto = new Konto();
-//		//List<T> list = new ArrayList<>();
-//		List searchResults;
-//		switch (parametrWyszukiwania)
-//		{
-//			case 0:
-//			{
-//				searchResults = new ArrayList<Konto>();
-//				//for(Konto konto : list){
-//					//if(konto==tekst)
-//					//{
-//						//return list;
-//					//}
-//				//}
-//			}
-//			case 1:
-//			{
-//				searchResults = new ArrayList<Kaseta>() {
-//				};
-//				for(Kaseta kaseta : list){
-//					if(kaseta.tytul.contains(tekst))
-//					{
-//						searchResults.add(kaseta);
-//					}
-//				}
-//			}
-//			
-//		}
-//		return searchResults;
-//	}
+	public <T> List<T> Wyszukaj(String tekst, int parametrWyszukiwania) {
+
+		List searchResults = null;
+		switch (parametrWyszukiwania)
+		{
+			case 0:
+			{
+				searchResults = new ArrayList<Konto>();
+				for(Konto konto : baza.listaKont){
+					if(konto.nazwisko.toUpperCase().contains(tekst.toUpperCase())||konto.imie.toUpperCase().contains(tekst.toUpperCase()))
+					{
+						searchResults.add(konto);
+					}
+				}
+				break;
+			}
+			
+			case 1:
+			{
+				searchResults = new ArrayList<Kaseta>() {
+				};
+				for(Kaseta kaseta : baza.listaTytulow){
+					if(kaseta.tytul.toUpperCase().contains(tekst.toUpperCase()))
+					{
+						searchResults.add(kaseta);
+					}
+				}
+				break;
+			}
+			
+		}
+		return searchResults;
+	}
 
 }

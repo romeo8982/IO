@@ -31,9 +31,7 @@ public class Frame1 {
 	public Baza baza = new Baza();
 	public Klient klient;
 	public Kaseta kaseta;
-	private Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
 	private SystemLogowania logowanie = new SystemLogowania();
-	
 
 	/**
 	 * Launch the application.
@@ -100,9 +98,7 @@ public class Frame1 {
 		lblNewLabel_3.setBounds(210, 186, 226, 23);
 		lblNewLabel_3.setVisible(false);
 		frame.getContentPane().add(lblNewLabel_3);
-		
-		//JList searchResults = new JList();
-		
+				
 		JButton btnNewButton = new JButton("Zaloguj");
 		btnNewButton.setBounds(243, 152, 89, 23);
 		frame.getContentPane().add(btnNewButton);	

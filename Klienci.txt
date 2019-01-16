@@ -4,8 +4,8 @@ Kowalski
 kamil@gmail.com
 0
 0
-12345
-54321
+1
+1
 0
 false
 2

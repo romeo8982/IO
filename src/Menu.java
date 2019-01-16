@@ -6,14 +6,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JList;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class Menu extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
 
 	/**
 	 * Launch the application.
@@ -64,14 +68,27 @@ public class Menu extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Wyszukaj Fraze");
+		JLabel lblNewLabel = new JLabel("Wyszukaj kasetę");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblNewLabel.setBounds(335, 141, 203, 47);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton_2 = new JButton("Wyszukaj");
-		btnNewButton_2.setBounds(398, 562, 89, 23);
-		contentPane.add(btnNewButton_2);
+		
+		JButton btnWyszukaj = new JButton("Wyszukaj");
+		btnWyszukaj.setBounds(398, 562, 89, 23);
+		contentPane.add(btnWyszukaj);
+		btnWyszukaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<Kaseta>results = wyszukiwarka.Wyszukaj(textField.getText(), 1);
+				for (Kaseta kaseta : results) {
+					System.out.println(kaseta.tytul);
+				}
+			}
+		});
+
+		
+		
+		
 	}
 
 }

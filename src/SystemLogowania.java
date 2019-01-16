@@ -6,13 +6,13 @@ public class SystemLogowania {
 	 * @param listaKont
 	 * @param login
 	 * @param haslo
-	 */
+	 */	
 		public boolean Logowanie(String login,String haslo, List<Klient> lista)
 		{
 			boolean udaneLogowanie=false;
-			for(int i=0;i<lista.size();i++)
+			for(Konto konto : lista)
 			{
-				if((login.equals(lista.get(i).login))&&(haslo.equals(lista.get(i).haslo)))
+				if((login.equals(konto.login))&&(haslo.equals(konto.haslo)))
 				{				
 					udaneLogowanie=true;
 				}
