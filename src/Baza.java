@@ -62,6 +62,9 @@ public class Baza {
 			    if ((line = br.readLine()) != null) {
 				       klient.zablokowaneKonto=Boolean.parseBoolean(line);
 				    }
+			    if ((line = br.readLine()) != null) {
+				       klient.wlascicielKonta=Integer.parseInt(line);
+				    }
 			    listaKont.add(klient);
 		    }
 		    br.close();

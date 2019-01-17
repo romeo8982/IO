@@ -8,16 +8,18 @@ kamil@gmail.com
 1
 0
 false
+1
 2
 Jacek
 Kowalski
 kamil@gmail.com
 0
 0
-qwerty
-ytrewq
+2
+2
 0
 false
+0
 3
 Andrzej
 Nowak
@@ -28,3 +30,4 @@ anowak
 haslo
 0
 false
+0

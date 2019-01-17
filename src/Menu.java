@@ -2,43 +2,50 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
 
 public class Menu extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private JList<Kaseta> list;
+	private DefaultListModel<String> listModel1 = new DefaultListModel<String>();
+	private DefaultListModel<String> listModel2 = new DefaultListModel<String>();
+	private static String[] resultList;
 	Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
 	Konto loggedUser = new Konto();
+	Wypozyczenie lend=new Wypozyczenie();
+	Rezerwacja book;
 	Baza baza = new Baza();
+	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+	Date date = new Date();
+	boolean idPicked = false;
 
 	/**
 	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Menu frame = new Menu(args[0]);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
 	 */
 	public Menu(String login) {
 		loggedUser = baza.daneKonta(login);
@@ -81,15 +88,134 @@ public class Menu extends JFrame {
 		JButton btnWyszukaj = new JButton("Wyszukaj");
 		btnWyszukaj.setBounds(398, 562, 89, 23);
 		contentPane.add(btnWyszukaj);
+		
+	
 		btnWyszukaj.addActionListener(new ActionListener() {
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public void actionPerformed(ActionEvent arg0) {
+				if(loggedUser.wlascicielKonta==0)
+				{
 				List<Kaseta>results = wyszukiwarka.Wyszukaj(textField.getText(), 1);
+				
 				for (Kaseta kaseta : results) {
-					System.out.println(kaseta.tytul);
+					listModel1.addElement(kaseta.tytul);
+					 System.out.println(kaseta.tytul);
+				}
+				System.out.println("-----------------");
+				JList list_1 = new JList(listModel1);
+				list_1.setBounds(234, 246, 403, 273);
+				list_1.setVisible(true);
+							
+				list_1.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						if (! e.getValueIsAdjusting())
+						{
+																					
+								book = new Rezerwacja();
+								book.idKonta=loggedUser.id;
+								
+								Kaseta[] arrayResults = new Kaseta[results.size()];
+								arrayResults = results.toArray(arrayResults);	
+								
+								book.idTytulu=arrayResults[list_1.getSelectedIndex()].id;
+								
+								loggedUser.iloscZarezerwowanych+=1;
+								
+								System.out.println("id rezerwacji: " + book.id);
+								System.out.println("id konta: " + book.idKonta);
+								System.out.println("id tytulu: " + book.idTytulu);															
+						}
+				}});
+				contentPane.add(list_1);					
+				repaint();
+				}
+				else if(loggedUser.wlascicielKonta==1)
+				{
+					if(idPicked==false)
+					{
+					List<Konto>results = wyszukiwarka.Wyszukaj(textField.getText(), 0);
+					
+					for (Konto konto : results) {
+						listModel2.addElement(konto.imie+" "+konto.nazwisko);
+						 System.out.println(konto.imie+" "+konto.nazwisko);
+					}
+					System.out.println("-----------------");
+					JList list_1 = new JList(listModel2);
+					list_1.setBounds(234, 246, 403, 273);
+					list_1.setVisible(true);
+							
+					list_1.addListSelectionListener(new ListSelectionListener() {
+						public void valueChanged(ListSelectionEvent e) {
+							if (! e.getValueIsAdjusting())
+							{								
+								Klient[] arrayResults = new Klient[results.size()];
+								arrayResults = results.toArray(arrayResults);	
+								klientIdSaver(arrayResults[list_1.getSelectedIndex()].id);
+								list_1.setVisible(false);
+							}
+					}});					
+					contentPane.add(list_1);					
+					repaint();
+					}
+					else
+					{
+						List<Kaseta>results = wyszukiwarka.Wyszukaj(textField.getText(), 1);
+						
+						for (Kaseta kaseta : results) {
+							listModel1.addElement(kaseta.tytul);
+							 System.out.println(kaseta.tytul);
+						}
+						System.out.println("-----------------");
+						JList list_1 = new JList(listModel1);
+						list_1.setBounds(234, 246, 403, 273);
+						list_1.setVisible(true);
+								
+						list_1.addListSelectionListener(new ListSelectionListener() {
+							public void valueChanged(ListSelectionEvent e) {
+								if (! e.getValueIsAdjusting())
+								{																									
+									Kaseta[] arrayResults = new Kaseta[results.size()];
+									arrayResults = results.toArray(arrayResults);	
+									lendFiller(arrayResults[list_1.getSelectedIndex()].id);																	
+								}
+						}});					
+						contentPane.add(list_1);					
+						repaint();
+					}
 				}
 			}
-		});
-
+		});				
 	}
 
+	private void klientIdSaver(int idKlient) {
+		lend.idKonta=idKlient;	
+		idPicked = true;
+		System.out.println(idPicked);
+	}
+	private void lendFiller(int idTitle)
+	{
+		lend.dataWypozyczenia=date;
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MONTH, 1);
+		lend.dataZwrotu=c.getTime();
+		lend.idTytulu=idTitle;
+		lend.przedluzano=false;
+		
+		loggedUser.iloscWypozyczen+=1;
+		
+		System.out.println("id Wypozyczenia: "+lend.id);
+		System.out.println("id Konta: "+lend.idKonta);
+		System.out.println("id tytul: "+lend.idTytulu);
+		System.out.println("data wypozyczenia: "+ lend.dataWypozyczenia);
+		System.out.println("data zwrotu: "+lend.dataZwrotu);
+		System.out.println("czy przdluzano: "+lend.przedluzano);
+	}
+	public static String[] getResultList() {
+		return resultList;
+	}
+
+	public static void setResultList(String[] resultList) {
+		Menu.resultList = resultList;
+	}
 }

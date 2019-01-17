@@ -5,12 +5,12 @@ public class Wypozyczenie {
 
 
 	private static final AtomicInteger count = new AtomicInteger(0); 
-	private int id;
-	private int idKonta;
-	private int idTytulu;
-	private Date dataWypozyczenia;
-	private Date dataZwrotu;
-	private boolean przedluzano;
+	int id;
+	int idKonta;
+	int idTytulu;
+	Date dataWypozyczenia;
+	Date dataZwrotu;
+	boolean przedluzano;
 	
 	Wypozyczenie(){
 		id = count.incrementAndGet();
