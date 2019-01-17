@@ -211,6 +211,7 @@ public class Menu extends JFrame {
 		System.out.println("data zwrotu: "+lend.dataZwrotu);
 		System.out.println("czy przdluzano: "+lend.przedluzano);
 	}
+
 	public static String[] getResultList() {
 		return resultList;
 	}
