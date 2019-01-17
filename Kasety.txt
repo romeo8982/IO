@@ -8,7 +8,7 @@ Robert Downey Jr.,Chris Hemsworth,Mark Ruffalo,Chris Evans,Scarlett Johansson,Be
 0
 30
 2
-Testowy 2 rekord
+Harry Potter i Kamień Filozoficzny
 Potężny Thanos zbiera Kamienie Nieskończoności w celu narzucenia swojej woli wszystkim istnieniom we wszechświecie. Tylko drużyna superbohaterów znanych jako Avengers może go powstrzymać.
 23-04-18
 Anthony Russo Joe Russo
@@ -17,7 +17,7 @@ Robert Downey Jr.,Chris Hemsworth,Mark Ruffalo,Chris Evans,Scarlett Johansson,Be
 0
 30
 3
-Testowy 3 rekord
+Deadpool
 Potężny Thanos zbiera Kamienie Nieskończoności w celu narzucenia swojej woli wszystkim istnieniom we wszechświecie. Tylko drużyna superbohaterów znanych jako Avengers może go powstrzymać.
 23-04-18
 Anthony Russo Joe Russo
@@ -26,7 +26,7 @@ Robert Downey Jr.,Chris Hemsworth,Mark Ruffalo,Chris Evans,Scarlett Johansson,Be
 0
 30
 4
-Testowy 4 rekord
+Spiderman
 Potężny Thanos zbiera Kamienie Nieskończoności w celu narzucenia swojej woli wszystkim istnieniom we wszechświecie. Tylko drużyna superbohaterów znanych jako Avengers może go powstrzymać.
 23-04-18
 Anthony Russo Joe Russo
@@ -35,7 +35,7 @@ Robert Downey Jr.,Chris Hemsworth,Mark Ruffalo,Chris Evans,Scarlett Johansson,Be
 0
 30
 5
-Testowy 5 rekord
+Django
 Potężny Thanos zbiera Kamienie Nieskończoności w celu narzucenia swojej woli wszystkim istnieniom we wszechświecie. Tylko drużyna superbohaterów znanych jako Avengers może go powstrzymać.
 23-04-18
 Anthony Russo Joe Russo
@@ -44,7 +44,7 @@ Robert Downey Jr.,Chris Hemsworth,Mark Ruffalo,Chris Evans,Scarlett Johansson,Be
 0
 30
 6
-Testowy 6 rekord
+Grease
 Potężny Thanos zbiera Kamienie Nieskończoności w celu narzucenia swojej woli wszystkim istnieniom we wszechświecie. Tylko drużyna superbohaterów znanych jako Avengers może go powstrzymać.
 23-04-18
 Anthony Russo Joe Russo
@@ -53,7 +53,7 @@ Robert Downey Jr.,Chris Hemsworth,Mark Ruffalo,Chris Evans,Scarlett Johansson,Be
 0
 30
 7
-Testowy 7 rekord
+Bolt
 Potężny Thanos zbiera Kamienie Nieskończoności w celu narzucenia swojej woli wszystkim istnieniom we wszechświecie. Tylko drużyna superbohaterów znanych jako Avengers może go powstrzymać.
 23-04-18
 Anthony Russo Joe Russo
