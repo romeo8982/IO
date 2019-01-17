@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -23,31 +24,34 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 
-public class Menu extends JFrame {
+public class LoggedInMenu extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textFieldSearch;
 	private JList<Kaseta> list;
 	private DefaultListModel<String> listModel1 = new DefaultListModel<String>();
 	private DefaultListModel<String> listModel2 = new DefaultListModel<String>();
+	private DefaultListModel<String> listModelAccount = new DefaultListModel<String>();
 	private static String[] resultList;
 	Wyszukiwarka wyszukiwarka = new Wyszukiwarka();
 	Konto loggedUser = new Konto();
-	Wypozyczenie lend=new Wypozyczenie();
-	Rezerwacja book;
+	Wypozyczenie lend = new Wypozyczenie();
+	Rezerwacja booking;
 	Baza baza = new Baza();
 	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
 	Date date = new Date();
 	boolean idPicked = false;
+	int idLender = 0;
+	int accCounter = 0;
 
 	/**
 	 * Launch the application.
 	 */
-	public Menu(String login) {
+	public LoggedInMenu(String login) {
 		loggedUser = baza.daneKonta(login);
 		System.out.println("zalogowano jako " + loggedUser.imie + " " + loggedUser.nazwisko);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,45 +61,69 @@ public class Menu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.setBackground(new java.awt.Color(95, 221, 167));
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		JList listAccount = new JList(listModelAccount);
+
+		listModelAccount.addElement("Imie: " +loggedUser.imie);
+		listModelAccount.addElement("Nazwisko: " +loggedUser.nazwisko);
+		listModelAccount.addElement("Email: " +loggedUser.email);
+		listModelAccount.addElement("Saldo: " + String.valueOf(loggedUser.saldo));
 		
-		JButton btnNewButton = new JButton("Konto");
-		btnNewButton.setBounds(10, 11, 89, 23);
-		contentPane.add(btnNewButton);
+		contentPane.add(listAccount);
+		listAccount.setVisible(false);
 		
-		JButton btnNewButton_1 = new JButton("Wyloguj");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		listAccount.setBounds(234, 32, 403, 80);
+		JButton btnAccount = new JButton("Konto");
+		btnAccount.setBounds(10, 11, 89, 23);
+		contentPane.add(btnAccount);
+		btnAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(accCounter%2==0)
+				listAccount.setVisible(true);
+				else
+					listAccount.setVisible(false);
+				
+				accCounter++;
+			}
+		});
+		JButton btnLogout = new JButton("Wyloguj");
+		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				contentPane.setVisible(false);
 				dispose(); 
-				Frame1 menu = new Frame1();
+				LoginWindow menu = new LoginWindow();
 				menu.frame.setVisible(true);	
 			}
 		});
-		btnNewButton_1.setBounds(97, 11, 89, 23);
-		contentPane.add(btnNewButton_1);
+		btnLogout.setBounds(97, 11, 89, 23);
+		contentPane.add(btnLogout);
 		
-		textField = new JTextField();
-		textField.setBounds(234, 199, 403, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Wyszukaj kasetę");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel.setBounds(335, 141, 203, 47);
-		contentPane.add(lblNewLabel);
+		textFieldSearch = new JTextField();
+		textFieldSearch.setBounds(234, 199, 403, 20);
+		contentPane.add(textFieldSearch);
+		textFieldSearch.setColumns(10);
 		
 		
-		JButton btnWyszukaj = new JButton("Wyszukaj");
-		btnWyszukaj.setBounds(398, 562, 89, 23);
-		contentPane.add(btnWyszukaj);
+		JLabel lblSearch = new JLabel("Wyszukaj kasetę");
+		lblSearch.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		lblSearch.setBounds(335, 141, 203, 47);
+		contentPane.add(lblSearch);
+		if(loggedUser.wlascicielKonta==1) {
+			lblSearch.setText("Wyszukaj klienta");
+		}
+		
+		
+		JButton btnSearch = new JButton("Wyszukaj");
+		btnSearch.setBounds(398, 562, 89, 23);
+		contentPane.add(btnSearch);
 		
 	
-		btnWyszukaj.addActionListener(new ActionListener() {
+		btnSearch.addActionListener(new ActionListener() {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public void actionPerformed(ActionEvent arg0) {
 				if(loggedUser.wlascicielKonta==0)
 				{
-				List<Kaseta>results = wyszukiwarka.Wyszukaj(textField.getText(), 1);
+				List<Kaseta>results = wyszukiwarka.Wyszukaj(textFieldSearch.getText(), 1);
 				
 				for (Kaseta kaseta : results) {
 					listModel1.addElement(kaseta.tytul);
@@ -105,25 +133,26 @@ public class Menu extends JFrame {
 				JList list_1 = new JList(listModel1);
 				list_1.setBounds(234, 246, 403, 273);
 				list_1.setVisible(true);
-							
 				list_1.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						if (! e.getValueIsAdjusting())
 						{
 																					
-								book = new Rezerwacja();
-								book.idKonta=loggedUser.id;
+								booking = new Rezerwacja();
+								booking.idKonta=loggedUser.id;
 								
 								Kaseta[] arrayResults = new Kaseta[results.size()];
 								arrayResults = results.toArray(arrayResults);	
 								
-								book.idTytulu=arrayResults[list_1.getSelectedIndex()].id;
+								booking.idTytulu=arrayResults[list_1.getSelectedIndex()].id;
 								
 								loggedUser.iloscZarezerwowanych+=1;
+								System.out.println("-----------------");
+								System.out.println("id rezerwacji: " + booking.id);
+								System.out.println("id konta: " + booking.idKonta);
+								System.out.println("id tytulu: " + booking.idTytulu);
+								JOptionPane.showMessageDialog(null, "Pomyślnie zarezerwowano kasetę!", "", JOptionPane.INFORMATION_MESSAGE);
 								
-								System.out.println("id rezerwacji: " + book.id);
-								System.out.println("id konta: " + book.idKonta);
-								System.out.println("id tytulu: " + book.idTytulu);															
 						}
 				}});
 				contentPane.add(list_1);					
@@ -133,39 +162,42 @@ public class Menu extends JFrame {
 				{
 					if(idPicked==false)
 					{
-					List<Konto>results = wyszukiwarka.Wyszukaj(textField.getText(), 0);
+					List<Konto>results = wyszukiwarka.Wyszukaj(textFieldSearch.getText(), 0);
 					
 					for (Konto konto : results) {
 						listModel2.addElement(konto.imie+" "+konto.nazwisko);
 						 System.out.println(konto.imie+" "+konto.nazwisko);
 					}
 					System.out.println("-----------------");
-					JList list_1 = new JList(listModel2);
-					list_1.setBounds(234, 246, 403, 273);
-					list_1.setVisible(true);
+					JList listResults = new JList(listModel2);
+					listResults.setBounds(234, 246, 403, 273);
+					listResults.setVisible(true);
 							
-					list_1.addListSelectionListener(new ListSelectionListener() {
+					listResults.addListSelectionListener(new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent e) {
 							if (! e.getValueIsAdjusting())
 							{								
 								Klient[] arrayResults = new Klient[results.size()];
 								arrayResults = results.toArray(arrayResults);	
-								klientIdSaver(arrayResults[list_1.getSelectedIndex()].id);
-								list_1.setVisible(false);
+								idLender = (arrayResults[listResults.getSelectedIndex()].id);
+								idPicked = true;
+								listResults.setVisible(false);
+
+								lblSearch.setText("Wyszukaj kasetę");
 							}
 					}});					
-					contentPane.add(list_1);					
+					contentPane.add(listResults);					
 					repaint();
+
 					}
 					else
 					{
-						List<Kaseta>results = wyszukiwarka.Wyszukaj(textField.getText(), 1);
+						List<Kaseta>results = wyszukiwarka.Wyszukaj(textFieldSearch.getText(), 1);
 						
 						for (Kaseta kaseta : results) {
 							listModel1.addElement(kaseta.tytul);
 							 System.out.println(kaseta.tytul);
 						}
-						System.out.println("-----------------");
 						JList list_1 = new JList(listModel1);
 						list_1.setBounds(234, 246, 403, 273);
 						list_1.setVisible(true);
@@ -176,7 +208,8 @@ public class Menu extends JFrame {
 								{																									
 									Kaseta[] arrayResults = new Kaseta[results.size()];
 									arrayResults = results.toArray(arrayResults);	
-									lendFiller(arrayResults[list_1.getSelectedIndex()].id);																	
+									lendFiller(arrayResults[list_1.getSelectedIndex()].id);
+									JOptionPane.showMessageDialog(null, "Pomyślnie wypożyczono kasetę!", "", JOptionPane.INFORMATION_MESSAGE);
 								}
 						}});					
 						contentPane.add(list_1);					
@@ -187,23 +220,25 @@ public class Menu extends JFrame {
 		});				
 	}
 
-	private void klientIdSaver(int idKlient) {
-		lend.idKonta=idKlient;	
-		idPicked = true;
-		System.out.println(idPicked);
-	}
+//	private void klientIdSaver(int idKlient) {
+//		lend.idKonta=idKlient;	
+//		idPicked = true;
+//		System.out.println(idPicked);
+//	}
 	private void lendFiller(int idTitle)
 	{
+		Wypozyczenie lend = new Wypozyczenie();
 		lend.dataWypozyczenia=date;
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		c.add(Calendar.MONTH, 1);
+		lend.idKonta = idLender;
 		lend.dataZwrotu=c.getTime();
 		lend.idTytulu=idTitle;
 		lend.przedluzano=false;
 		
 		loggedUser.iloscWypozyczen+=1;
-		
+		System.out.println("-----------------");
 		System.out.println("id Wypozyczenia: "+lend.id);
 		System.out.println("id Konta: "+lend.idKonta);
 		System.out.println("id tytul: "+lend.idTytulu);
@@ -217,6 +252,6 @@ public class Menu extends JFrame {
 	}
 
 	public static void setResultList(String[] resultList) {
-		Menu.resultList = resultList;
+		LoggedInMenu.resultList = resultList;
 	}
 }

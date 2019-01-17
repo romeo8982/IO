@@ -24,12 +24,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.io.InputStreamReader;
-public class Frame1 {
+public class LoginWindow {
 
 	public JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JLabel lblNewLabel_3;
+	private JTextField textFieldLogin;
+	private JTextField textFieldPassword;
 	public Baza baza = new Baza();
 	public Klient klient;
 	public Kaseta kaseta;
@@ -43,7 +42,7 @@ public class Frame1 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Frame1 window = new Frame1();
+					LoginWindow window = new LoginWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +52,7 @@ public class Frame1 {
 	}
 
 
-	public Frame1()  {
+	public LoginWindow()  {
 		initialize();
 	}
 	
@@ -71,48 +70,48 @@ public class Frame1 {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().setBackground(new java.awt.Color(95, 221, 167));
 		
-		JLabel lblNewLabel = new JLabel("Wypo\u017Cyczalnia Kaset");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 31));
-		lblNewLabel.setBounds(144, 11, 292, 33);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblBanner = new JLabel("Wypo\u017Cyczalnia Kaset");
+		lblBanner.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		lblBanner.setBounds(144, 11, 292, 33);
+		frame.getContentPane().add(lblBanner);
 		
-		JLabel lblNewLabel_1 = new JLabel("Login:");
-		lblNewLabel_1.setBounds(177, 99, 46, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblLogin = new JLabel("Login:");
+		lblLogin.setBounds(177, 99, 46, 14);
+		frame.getContentPane().add(lblLogin);
 		
-		JLabel lblNewLabel_2 = new JLabel("has\u0142o:");
-		lblNewLabel_2.setBounds(177, 124, 46, 14);
-		frame.getContentPane().add(lblNewLabel_2);
+		JLabel lblPassword = new JLabel("has\u0142o:");
+		lblPassword.setBounds(177, 124, 46, 14);
+		frame.getContentPane().add(lblPassword);
 		
-		textField = new JTextField();
-		textField.setBounds(233, 96, 173, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		textFieldLogin = new JTextField();
+		textFieldLogin.setBounds(233, 96, 173, 20);
+		frame.getContentPane().add(textFieldLogin);
+		textFieldLogin.setColumns(10);
 		
-		textField_1 = new JPasswordField();
-		textField_1.setBounds(233, 121, 173, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		textFieldPassword = new JPasswordField();
+		textFieldPassword.setBounds(233, 121, 173, 20);
+		frame.getContentPane().add(textFieldPassword);
+		textFieldPassword.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Nieprawid\u0142owe Has\u0142o lub Login");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3.setForeground(Color.RED);
-		lblNewLabel_3.setBounds(210, 186, 226, 23);
-		lblNewLabel_3.setVisible(false);
-		frame.getContentPane().add(lblNewLabel_3);
+		JLabel lblWrongCredentials = new JLabel("Nieprawid\u0142owe Has\u0142o lub Login");
+		lblWrongCredentials.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblWrongCredentials.setForeground(Color.RED);
+		lblWrongCredentials.setBounds(210, 186, 226, 23);
+		lblWrongCredentials.setVisible(false);
+		frame.getContentPane().add(lblWrongCredentials);
 				
 		JButton btnNewButton = new JButton("Zaloguj");
 		btnNewButton.setBounds(243, 152, 89, 23);
 		frame.getContentPane().add(btnNewButton);	
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(logowanie.Logowanie(textField.getText(), textField_1.getText(), baza.listaKont))
+				if(logowanie.Logowanie(textFieldLogin.getText(), textFieldPassword.getText(), baza.listaKont))
 				{
 				frame.dispose();
-				Menu menu = new Menu(textField.getText());
+				LoggedInMenu menu = new LoggedInMenu(textFieldLogin.getText());
 				menu.setVisible(true);
 				}
-				lblNewLabel_3.setVisible(true);
+				lblWrongCredentials.setVisible(true);
 			}
 		});
 	}
