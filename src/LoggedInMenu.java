@@ -41,7 +41,7 @@ public class LoggedInMenu extends JFrame {
 	Konto loggedUser = new Konto();
 	Wypozyczenie lend = new Wypozyczenie();
 	Rezerwacja booking;
-	Baza baza = new Baza();
+	public Baza baza = new Baza();
 	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
 	Date date = new Date();
 	boolean idPicked = false;
@@ -89,10 +89,7 @@ public class LoggedInMenu extends JFrame {
 		JButton btnLogout = new JButton("Wyloguj");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				contentPane.setVisible(false);
-				dispose(); 
-				LoginWindow menu = new LoginWindow();
-				menu.frame.setVisible(true);	
+				logOut();
 			}
 		});
 		btnLogout.setBounds(97, 11, 89, 23);
@@ -104,7 +101,7 @@ public class LoggedInMenu extends JFrame {
 		textFieldSearch.setColumns(10);
 		
 		
-		JLabel lblSearch = new JLabel("Wyszukaj kasetę");
+		JLabel lblSearch = new JLabel("Wyszukaj kasetÄ™");
 		lblSearch.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblSearch.setBounds(335, 141, 203, 47);
 		contentPane.add(lblSearch);
@@ -136,23 +133,11 @@ public class LoggedInMenu extends JFrame {
 				list_1.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						if (! e.getValueIsAdjusting())
-						{
-																					
-								booking = new Rezerwacja();
-								booking.idKonta=loggedUser.id;
-								
+						{																																				
 								Kaseta[] arrayResults = new Kaseta[results.size()];
-								arrayResults = results.toArray(arrayResults);	
-								
-								booking.idTytulu=arrayResults[list_1.getSelectedIndex()].id;
-								
-								loggedUser.iloscZarezerwowanych+=1;
-								System.out.println("-----------------");
-								System.out.println("id rezerwacji: " + booking.id);
-								System.out.println("id konta: " + booking.idKonta);
-								System.out.println("id tytulu: " + booking.idTytulu);
-								JOptionPane.showMessageDialog(null, "Pomyślnie zarezerwowano kasetę!", "", JOptionPane.INFORMATION_MESSAGE);
-								
+								arrayResults = results.toArray(arrayResults);																								
+								reservation(arrayResults[list_1.getSelectedIndex()].id);																														
+								JOptionPane.showMessageDialog(null, "Pomyślnie zarezerwowano kasetę!", "", JOptionPane.INFORMATION_MESSAGE);							
 						}
 				}});
 				contentPane.add(list_1);					
@@ -220,11 +205,32 @@ public class LoggedInMenu extends JFrame {
 		});				
 	}
 
-//	private void klientIdSaver(int idKlient) {
-//		lend.idKonta=idKlient;	
-//		idPicked = true;
-//		System.out.println(idPicked);
-//	}
+	
+	public void reservation(int idTitle)
+	{
+		booking = new Rezerwacja();
+		booking.idKonta=loggedUser.id;
+		booking.idTytulu=idTitle;
+		loggedUser.iloscZarezerwowanych+=1;
+		
+		baza.listaKont.set(loggedUser.id-1, (Klient) loggedUser);
+		
+		System.out.println("-----------------");
+		System.out.println("id rezerwacji: " + booking.id);
+		System.out.println("id konta: " + booking.idKonta);
+		System.out.println("id tytulu: " + booking.idTytulu);
+		System.out.println(baza.listaKont.get(loggedUser.id-1).iloscZarezerwowanych);
+	}
+	
+	
+	private void logOut()
+	{
+		contentPane.setVisible(false);
+		dispose(); 
+		LoginWindow menu = new LoginWindow();
+		menu.frame.setVisible(true);	
+	}
+
 	private void lendFiller(int idTitle)
 	{
 		Wypozyczenie lend = new Wypozyczenie();

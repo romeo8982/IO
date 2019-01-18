@@ -12,9 +12,9 @@ import java.util.List;
 public class Baza {
 
 	public List<Klient> listaKont = new ArrayList<Klient>();
-	public List<Rezerwacja> listaRezerwacji;
-	public List<Wypozyczenie> listaWypozyczen;
-	public List<Kaseta> listaTytulow = new ArrayList<Kaseta>();;
+	public List<Rezerwacja> listaRezerwacji = new ArrayList<Rezerwacja>();
+	public List<Wypozyczenie> listaWypozyczen = new ArrayList<Wypozyczenie>();
+	public List<Kaseta> listaTytulow = new ArrayList<Kaseta>();
 
 	Kaseta kaseta = new Kaseta();
 	Klient klient = new Klient();
